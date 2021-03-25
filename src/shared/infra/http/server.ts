@@ -4,6 +4,7 @@ import 'express-async-errors';
 import '../typeorm';
 import routes from './routes';
 import '@shared/container';
+import '@modules/users/providers';
 import AppError from './error/AppError';
 
 const app = express();
@@ -20,7 +21,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   console.error(err);
   return response.status(500).json({
     status: 'error',
-    message: 'Internal Server error',
+    message: 'Internal Server errors',
   });
 });
 

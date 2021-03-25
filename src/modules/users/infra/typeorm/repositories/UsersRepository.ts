@@ -10,6 +10,14 @@ class UsersRepository implements IUsersRepository {
     this.ormRepository = getRepository(Users); // cria o repositorio
   }
 
+  public async findByEmail(email: string): Promise<Users | undefined> {
+    const user = await this.ormRepository.findOne({
+      where: { email },
+    });
+
+    return user;
+  }
+
   public async create(userData: ICreateUsersDTO): Promise<Users> {
     const user = this.ormRepository.create(userData);
     await this.ormRepository.save(user);

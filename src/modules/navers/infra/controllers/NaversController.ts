@@ -8,7 +8,7 @@ import Navers from '../typeorm/entities/Navers';
 
 export default class NaversController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const users_id = request.user.id;
+    const user_id = request.user.id;
     const {
       name,
       birthDate,
@@ -23,7 +23,7 @@ export default class NaversController {
     const createUser = container.resolve(CreateNaversService); // instancio repository quando chamo serviço
     const navers = await createUser.execute({
       name,
-      users_id,
+      user_id,
       birthDate: birthDateparsed,
       admission_date: admissionParsed,
       job_role,
@@ -35,7 +35,7 @@ export default class NaversController {
 
   // metodos index....
   public async index(request: Request, response: Response): Promise<Response> {
-    const data = { ...request.query, users_id: request.user.id };
+    const data = { ...request.query, user_id: request.user.id };
 
     const naversFilter = container.resolve(FilterNaversService); // instancio repository quando chamo serviço
     const projectsNavers = await naversFilter.execute(data);

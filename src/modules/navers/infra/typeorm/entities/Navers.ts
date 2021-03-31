@@ -16,11 +16,11 @@ export default class Navers {
   id: string;
 
   @Column()
-  users_id: string;
+  user_id: string;
 
   @ManyToOne(() => Users)
-  @JoinColumn({ name: 'users_id' })
-  users: Users;
+  @JoinColumn({ name: 'user_id' })
+  user: Users;
 
   @Column()
   name: string;

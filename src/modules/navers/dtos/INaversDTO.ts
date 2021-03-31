@@ -1,6 +1,6 @@
 export interface INaversDTO {
   name: string;
-  users_id: string;
+  user_id: string;
   birthDate: Date;
   admission_date: Date;
   job_role: string;
@@ -9,5 +9,5 @@ export interface INaversDTO {
 export interface IFilterNavers {
   name?: string;
   id?: string;
-  users_id?: string;
+  user_id?: string;
 }

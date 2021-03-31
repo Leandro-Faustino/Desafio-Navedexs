@@ -16,7 +16,7 @@ class CreateNaversService {
 
   public async execute({
     name,
-    users_id,
+    user_id,
     birthDate,
     admission_date,
     job_role,
@@ -25,7 +25,7 @@ class CreateNaversService {
     // fazer verificaçao se usuario existe db
     const existNaver = await getRepository(Navers)
       .createQueryBuilder('navers')
-      .where('users_id = :id AND navers.name = :name', { id: users_id, name })
+      .where('user_id = :id AND name = :name', { id: user_id, name })
       .getOne();
 
     console.log(existNaver);
@@ -35,7 +35,7 @@ class CreateNaversService {
     // criaçao do meu usuario pelo repositorioUser
     const naver = await this.naversRepository.create({
       name,
-      users_id,
+      user_id,
       birthDate,
       admission_date,
       job_role,

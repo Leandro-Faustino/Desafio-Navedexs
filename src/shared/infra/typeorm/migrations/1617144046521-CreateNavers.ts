@@ -19,16 +19,11 @@ export default class CreateNavers1617144046521 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'users_id',
+            name: 'user_id',
             type: 'uuid',
             isNullable: true,
           },
 
-          {
-            name: 'projects_id',
-            type: 'uuid',
-            isNullable: true,
-          },
           {
             name: 'name',
             type: 'varchar',
@@ -53,7 +48,7 @@ export default class CreateNavers1617144046521 implements MigrationInterface {
       'navers',
       new TableForeignKey({
         name: 'NaversUser',
-        columnNames: ['users_id'],
+        columnNames: ['user_id'],
         referencedTableName: 'users',
         referencedColumnNames: ['id'],
         onUpdate: 'CASCADE',

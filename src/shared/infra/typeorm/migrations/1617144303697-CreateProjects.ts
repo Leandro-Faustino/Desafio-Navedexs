@@ -19,15 +19,11 @@ export class CreateProjects1617144303697 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'users_id',
+            name: 'user_id',
             type: 'uuid',
             isNullable: true,
           },
-          {
-            name: 'navers_id',
-            type: 'uuid',
-            isNullable: true,
-          },
+
           {
             name: 'name',
             type: 'varchar',
@@ -40,7 +36,7 @@ export class CreateProjects1617144303697 implements MigrationInterface {
       'projects',
       new TableForeignKey({
         name: 'ProjectsUser',
-        columnNames: ['users_id'],
+        columnNames: ['user_id'],
         referencedTableName: 'users',
         referencedColumnNames: ['id'],
         onUpdate: 'CASCADE',

@@ -1,4 +1,4 @@
-/* import {
+import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
@@ -6,11 +6,8 @@
   ManyToMany,
   JoinColumn,
   JoinTable,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-
-/* import User from '@modules/users/infra/typeorm/entities/Users';
+import Users from '@modules/users/infra/typeorm/entities/Users';
 import Projects from '@modules/projects/infra/typeorm/entities/Projects';
 
 @Entity('navers')
@@ -19,31 +16,25 @@ export default class Navers {
   id: string;
 
   @Column()
-  user_id: string;
+  users_id: string;
 
-  /* @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
-
-  @ManyToMany(() => Projects)
-  @JoinTable()
-  projects: Projects[];
+  @ManyToOne(() => Users)
+  @JoinColumn({ name: 'users_id' })
+  users: Users;
 
   @Column()
   name: string;
 
+  @ManyToMany(() => Projects, projects => projects.navers)
+  @JoinTable()
+  projects: Projects[];
+
   @Column()
-  birthdate: Date;
+  birthDate: Date;
 
   @Column()
   admission_date: Date;
 
   @Column()
   job_role: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-} */
+}

@@ -1,16 +1,13 @@
-/* import {
+import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
   ManyToMany,
   JoinColumn,
-  JoinTable,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
-import User from '@modules/users/infra/typeorm/entities/Users';
+import Users from '@modules/users/infra/typeorm/entities/Users';
 import Navers from '@modules/navers/infra/typeorm/entities/Navers';
 
 @Entity('projects')
@@ -19,23 +16,15 @@ export default class Projects {
   id: string;
 
   @Column()
-  user_id: string;
+  users_id: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  @ManyToOne(() => Users)
+  @JoinColumn({ name: 'users_id' })
+  users: Users;
 
-  @ManyToMany(() => Navers)
-  @JoinTable()
+  @ManyToMany(() => Navers, navers => navers.projects)
   navers: Navers[];
 
   @Column()
   name: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 }
- */

@@ -8,4 +8,8 @@ naversRouter.use(ensureAuthenticated);
 
 naversRouter.post('/store', naversController.create);
 naversRouter.get('/index', naversController.index);
+naversRouter.get('/:id', naversController.show);
+naversRouter.put('/:id', naversController.update);
+naversRouter.delete('/:id', naversController.delete);
+
 export default naversRouter;

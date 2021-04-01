@@ -6,6 +6,7 @@ import INaversRepository from '@modules/navers/infra/repositories/INaversReposit
 import NaversRepository from '@modules/navers/infra/typeorm/repositories/NaversRepository';
 import IProjectsRepository from '@modules/projects/infra/repositories/IProjectsRepository';
 import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
+import INaversRepositoryFilter from '@modules/navers/infra/repositories/INaversRepositoryFilter';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -14,6 +15,11 @@ container.registerSingleton<IUsersRepository>(
 
 container.registerSingleton<INaversRepository>(
   'NaversRepository',
+  NaversRepository,
+);
+
+container.registerSingleton<INaversRepositoryFilter>(
+  'NaversRepository2',
   NaversRepository,
 );
 

@@ -7,5 +7,8 @@ const projectsController = new ProjectsController();
 projectsRouter.use(ensureAuthenticated);
 
 projectsRouter.post('/store', projectsController.create);
-/* naversRouter.post('/index', naversController.index); */
+projectsRouter.get('/', projectsController.index);
+projectsRouter.get('/:id', projectsController.show);
+projectsRouter.put('/:id', projectsController.update);
+projectsRouter.delete('/:id', projectsController.delete);
 export default projectsRouter;

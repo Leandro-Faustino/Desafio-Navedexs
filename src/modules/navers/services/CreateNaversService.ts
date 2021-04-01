@@ -1,10 +1,8 @@
-// import Users from '@modules/users/infra/typeorm/entities/Users';
-// import AppError from '@shared/infra/http/error/AppError';
 import AppError from '@shared/infra/http/error/AppError';
 import { injectable, inject } from 'tsyringe';
-import { getRepository } from 'typeorm';
 import { INaversDTO } from '../dtos/INaversDTO';
 import INaversRepository from '../infra/repositories/INaversRepository';
+import INaversRepositoryFilter from '../infra/repositories/INaversRepositoryFilter';
 import Navers from '../infra/typeorm/entities/Navers';
 
 @injectable()
@@ -12,6 +10,9 @@ class CreateNaversService {
   constructor(
     @inject('NaversRepository')
     private naversRepository: INaversRepository,
+
+    @inject('NaversRepository2')
+    private naversRepository2: INaversRepositoryFilter,
   ) {}
 
   public async execute({
@@ -23,13 +24,12 @@ class CreateNaversService {
     projects,
   }: INaversDTO): Promise<Navers> {
     // fazer verificaçao se usuario existe db
-    const existNaver = await getRepository(Navers)
-      .createQueryBuilder('navers')
-      .where('user_id = :id AND name = :name', { id: user_id, name })
-      .getOne();
+    const IfExistNaver = await this.naversRepository2.searchNaver({
+      user_id,
+      name,
+    });
 
-    console.log(existNaver);
-    if (existNaver) {
+    if (IfExistNaver) {
       throw new AppError('naver already created');
     }
     // criaçao do meu usuario pelo repositorioUser

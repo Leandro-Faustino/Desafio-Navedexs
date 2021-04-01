@@ -1,38 +1,56 @@
-import { getConnection, getRepository, Repository } from 'typeorm';
+import { Connection, getRepository, Repository } from 'typeorm';
 import { INaversDTO } from '@modules/navers/dtos/INaversDTO';
-import Navers from '../entities/Navers';
-import INaversRepository from '../../repositories/INaversRepository';
+import INaversRepository from '@modules/navers/infra/repositories/INaversRepository';
+import Navers from '@modules/navers/infra/typeorm/entities/Navers';
+import { INaversNoExistDTO } from '@modules/navers/dtos/INaversNoExistDTO';
+import INaversRepositoryFilter from '../../repositories/INaversRepositoryFilter';
 
-class NaversRepository implements INaversRepository {
+class NaversRepository implements INaversRepository, INaversRepositoryFilter {
   private ormRepository: Repository<Navers>; // cria typo repositorio
 
   constructor() {
-    this.ormRepository = getRepository(Navers); // cria o repositorio
+    this.ormRepository = getRepository(Navers);
+  }
+
+  public async searchNaver(
+    data: INaversNoExistDTO,
+  ): Promise<Navers | undefined> {
+    const naver = this.ormRepository.findOne(data);
+
+    return naver;
   }
 
   public async create({
+    user_id,
     name,
     birthDate,
     admission_date,
     job_role,
     projects,
-    user_id,
   }: INaversDTO): Promise<Navers> {
-    const end = await this.ormRepository
-      .createQueryBuilder()
-      .loadAllRelationIds({ relations: ['projects'] })
-      .getMany();
-
-    console.log(end);
     const naver = this.ormRepository.create({
+      user_id,
       name,
       birthDate,
       admission_date,
       job_role,
-      projects: end,
-      user_id,
+      projects,
     });
     await this.ormRepository.save(naver);
+
+    return naver;
+  }
+
+  public async findOneNaver(
+    data: INaversNoExistDTO,
+  ): Promise<Navers | undefined> {
+    const oneNaver = this.ormRepository.findOne(data);
+
+    return oneNaver;
+  }
+
+  public async findNaver(data: INaversNoExistDTO): Promise<Navers | undefined> {
+    const naver = this.ormRepository.findOne(data);
 
     return naver;
   }
@@ -45,6 +63,14 @@ class NaversRepository implements INaversRepository {
     const allNavers = this.ormRepository.find(data);
 
     return allNavers;
+  }
+
+  public async update(naver: any): Promise<Navers> {
+    return this.ormRepository.save(naver);
+  }
+
+  public async delete(id: INaversNoExistDTO): Promise<void> {
+    await this.ormRepository.delete(id);
   }
 }
 export default NaversRepository;

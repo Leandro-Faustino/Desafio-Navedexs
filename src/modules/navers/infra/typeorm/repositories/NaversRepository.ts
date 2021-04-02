@@ -1,23 +1,19 @@
 import { Connection, getRepository, Repository } from 'typeorm';
-import { INaversDTO } from '@modules/navers/dtos/INaversDTO';
+import { IFindNaversDTO, INaversDTO } from '@modules/navers/dtos/INaversDTO';
 import INaversRepository from '@modules/navers/infra/repositories/INaversRepository';
 import Navers from '@modules/navers/infra/typeorm/entities/Navers';
-import { INaversNoExistDTO } from '@modules/navers/dtos/INaversNoExistDTO';
-import INaversRepositoryFilter from '../../repositories/INaversRepositoryFilter';
 
-class NaversRepository implements INaversRepository, INaversRepositoryFilter {
+class NaversRepository implements INaversRepository {
   private ormRepository: Repository<Navers>; // cria typo repositorio
 
   constructor() {
     this.ormRepository = getRepository(Navers);
   }
 
-  public async searchNaver(
-    data: INaversNoExistDTO,
-  ): Promise<Navers | undefined> {
-    const naver = this.ormRepository.findOne(data);
+  public async findNaver(data: IFindNaversDTO): Promise<Navers | undefined> {
+    const navers = await this.ormRepository.findOne(data);
 
-    return naver;
+    return navers;
   }
 
   public async create({
@@ -41,18 +37,10 @@ class NaversRepository implements INaversRepository, INaversRepositoryFilter {
     return naver;
   }
 
-  public async findOneNaver(
-    data: INaversNoExistDTO,
-  ): Promise<Navers | undefined> {
-    const oneNaver = this.ormRepository.findOne(data);
+  public async findOneNaver(data: any): Promise<Navers | undefined> {
+    const oneNaver = await this.ormRepository.findOne(data);
 
     return oneNaver;
-  }
-
-  public async findNaver(data: INaversNoExistDTO): Promise<Navers | undefined> {
-    const naver = this.ormRepository.findOne(data);
-
-    return naver;
   }
 
   public async save(navers: Navers): Promise<Navers> {
@@ -60,7 +48,7 @@ class NaversRepository implements INaversRepository, INaversRepositoryFilter {
   }
 
   public async index(data: any): Promise<Navers[] | undefined> {
-    const allNavers = this.ormRepository.find(data);
+    const allNavers = await this.ormRepository.find(data);
 
     return allNavers;
   }
@@ -69,7 +57,7 @@ class NaversRepository implements INaversRepository, INaversRepositoryFilter {
     return this.ormRepository.save(naver);
   }
 
-  public async delete(id: INaversNoExistDTO): Promise<void> {
+  public async delete(id: any): Promise<void> {
     await this.ormRepository.delete(id);
   }
 }

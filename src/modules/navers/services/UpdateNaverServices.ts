@@ -1,12 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
-import INaverRepository from '@modules/navers/infra/repositories/INaversRepository';
-
 import Navers from '@modules/navers/infra/typeorm/entities/Navers';
 
 import AppError from '@shared/infra/http/error/AppError';
-import { getRepository } from 'typeorm';
-import INaversRepositoryFilter from '../infra/repositories/INaversRepositoryFilter';
+import INaversRepository from '@modules/navers/infra/repositories/INaversRepository';
 
 interface Request {
   id: string;
@@ -21,11 +18,8 @@ interface Request {
 @injectable()
 export default class UpdateNaverServices {
   constructor(
-    @inject('NaverRepository')
-    private naverRepository: INaverRepository,
-
-    @inject('NaversRepository2')
-    private naversRepository2: INaversRepositoryFilter,
+    @inject('NaversRepository')
+    private naversRepository: INaversRepository,
   ) {}
 
   public async execute({
@@ -37,7 +31,9 @@ export default class UpdateNaverServices {
     user_id,
     projects,
   }: Request): Promise<Navers> {
-    const existNaverID = await this.naversRepository2.findNaver({ id });
+    const existNaverID = await this.naversRepository.findNaver({
+      where: { id },
+    });
 
     if (!existNaverID?.name) {
       throw new AppError('Naver not found');
@@ -54,6 +50,6 @@ export default class UpdateNaverServices {
     existNaverID.user_id = user_id;
     existNaverID.projects = projects;
 
-    return this.naverRepository.update(existNaverID);
+    return this.naversRepository.update(existNaverID);
   }
 }

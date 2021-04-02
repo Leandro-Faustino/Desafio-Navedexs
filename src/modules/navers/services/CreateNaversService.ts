@@ -2,7 +2,6 @@ import AppError from '@shared/infra/http/error/AppError';
 import { injectable, inject } from 'tsyringe';
 import { INaversDTO } from '../dtos/INaversDTO';
 import INaversRepository from '../infra/repositories/INaversRepository';
-import INaversRepositoryFilter from '../infra/repositories/INaversRepositoryFilter';
 import Navers from '../infra/typeorm/entities/Navers';
 
 @injectable()
@@ -10,9 +9,6 @@ class CreateNaversService {
   constructor(
     @inject('NaversRepository')
     private naversRepository: INaversRepository,
-
-    @inject('NaversRepository2')
-    private naversRepository2: INaversRepositoryFilter,
   ) {}
 
   public async execute({
@@ -24,9 +20,8 @@ class CreateNaversService {
     projects,
   }: INaversDTO): Promise<Navers> {
     // fazer verificaçao se usuario existe db
-    const IfExistNaver = await this.naversRepository2.searchNaver({
-      user_id,
-      name,
+    const IfExistNaver = await this.naversRepository.findNaver({
+      where: { name, user_id },
     });
 
     if (IfExistNaver) {

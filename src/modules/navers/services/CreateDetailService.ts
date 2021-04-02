@@ -3,18 +3,17 @@ import { injectable, inject } from 'tsyringe';
 import Navers from '@modules/navers/infra/typeorm/entities/Navers';
 
 import AppError from '@shared/infra/http/error/AppError';
-import INaversRepositoryFilter from '../infra/repositories/INaversRepositoryFilter';
-import { INaversNoExistDTO } from '../dtos/INaversNoExistDTO';
+import INaversRepository from '@modules/navers/infra/repositories/INaversRepository';
 
 @injectable()
 export default class CreateDetailService {
   constructor(
-    @inject('NaversRepository2')
-    private naversRepository2: INaversRepositoryFilter,
+    @inject('NaversRepository')
+    private naversRepository: INaversRepository,
   ) {}
 
-  public async execute(data: INaversNoExistDTO): Promise<Navers | undefined> {
-    const naver = await this.naversRepository2.findOneNaver(data);
+  public async execute(data: any): Promise<Navers | undefined> {
+    const naver = await this.naversRepository.findOneNaver(data);
 
     if (!naver) {
       throw new AppError('Nave not exist.');

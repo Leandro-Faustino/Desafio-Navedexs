@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
-import IProjectRepository from '@modules/projects/infra/repositories/IProjectsRepository';
+import IProjectsRepository from '@modules/projects/infra/repositories/IProjectsRepository';
 
 import Project from '@modules/projects/infra/typeorm/entities/Projects';
 
@@ -16,8 +16,8 @@ interface Request {
 @injectable()
 export default class UpdateProjectServices {
   constructor(
-    @inject('ProjectRepository')
-    private projectRepository: IProjectRepository,
+    @inject('ProjectsRepository')
+    private projectsRepository: IProjectsRepository,
   ) {}
 
   public async execute({
@@ -26,7 +26,7 @@ export default class UpdateProjectServices {
     user_id,
     navers,
   }: Request): Promise<Project> {
-    const project = await this.projectRepository.findProject({
+    const project = await this.projectsRepository.findProject({
       where: { id },
     });
 
@@ -42,6 +42,6 @@ export default class UpdateProjectServices {
     project.user_id = user_id;
     project.navers = navers;
 
-    return this.projectRepository.update(project);
+    return this.projectsRepository.update(project);
   }
 }

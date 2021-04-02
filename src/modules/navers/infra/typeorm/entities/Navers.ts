@@ -6,6 +6,8 @@ import {
   ManyToMany,
   JoinColumn,
   JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import Users from '@modules/users/infra/typeorm/entities/Users';
 import Projects from '@modules/projects/infra/typeorm/entities/Projects';
@@ -25,8 +27,8 @@ export default class Navers {
   @Column()
   name: string;
 
-  @ManyToMany(() => Projects, projects => projects.navers)
-  @JoinTable()
+  @ManyToOne(() => Projects, navers => Navers, { eager: true })
+  @JoinColumn()
   projects: Projects[];
 
   @Column()
@@ -37,4 +39,10 @@ export default class Navers {
 
   @Column()
   job_role: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }

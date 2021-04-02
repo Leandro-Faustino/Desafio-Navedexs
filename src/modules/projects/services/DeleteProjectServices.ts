@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
-import IProjectRepository from '@modules/projects/infra/repositories/IProjectsRepository';
+import IProjectsRepository from '@modules/projects/infra/repositories/IProjectsRepository';
 
 import AppError from '@shared/infra/http/error/AppError';
 
@@ -12,12 +12,12 @@ interface Request {
 @injectable()
 export default class DeleteProjectServices {
   constructor(
-    @inject('ProjectRepository')
-    private projectRepository: IProjectRepository,
+    @inject('ProjectsRepository')
+    private projectsRepository: IProjectsRepository,
   ) {}
 
   public async execute({ id, user_id }: Request): Promise<void> {
-    const project = await this.projectRepository.findProject({
+    const project = await this.projectsRepository.findProject({
       where: { id },
     });
 
@@ -29,6 +29,6 @@ export default class DeleteProjectServices {
       throw new AppError('This project does not belong to you.');
     }
 
-    await this.projectRepository.delete(id);
+    await this.projectsRepository.delete(id);
   }
 }

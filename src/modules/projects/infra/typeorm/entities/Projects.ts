@@ -5,6 +5,8 @@ import {
   ManyToOne,
   ManyToMany,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 import Users from '@modules/users/infra/typeorm/entities/Users';
@@ -22,9 +24,15 @@ export default class Projects {
   @JoinColumn({ name: 'user_id' })
   user: Users;
 
-  @ManyToMany(() => Navers, navers => navers.projects)
+  @ManyToOne(() => Navers, projects => Projects)
   navers: Navers[];
 
   @Column()
   name: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }

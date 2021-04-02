@@ -6,3 +6,10 @@ export interface INaversDTO {
   user_id: string;
   projects: any;
 }
+export interface IFindNaversDTO {
+  where: {
+    user_id?: string;
+    name?: string;
+    id?: string;
+  };
+}

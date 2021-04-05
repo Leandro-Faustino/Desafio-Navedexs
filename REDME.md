@@ -1,4 +1,4 @@
-# Projeto Naverdex's Api
+# Projeto Desafio Navedex's Api #
 
 ## Sobre
 <p>O sistema consiste em um criador de navedex's, nele tu poderá se cadastrar utilizando email e senha, e então ao logar terá acesso ao banco de dados dos seus navers, possuindo informações como: nomes, data de nascimento, cargos, tempo de empresa e projetos que participou.</p>
@@ -7,40 +7,40 @@
 
 ### Rota de Usuario
 
-* [/signup] Rota de cadastro
+* [/signup] * Rota de cadastro
 
 <p>Deverá receber email e senha e criar novo registro no banco</p>
 
 ### Autenticação
 
-* [/login] Rota para poder logar no sistema
+* [/login] * Rota para poder logar no sistema
 
 <p>Deverá retornar um token JWT para o usuário ter acesso à outras rotas
 Navers</p>
 
 ###  Rotas  de Navers
 
-*[/Index] Rota para listagem dos Navers.
+* [/Index] * Rota para listagem dos Navers.
 
-*[/Show] Rota para detalhar informações de um único naver através de seu identificador
+* [/Show] * Rota para detalhar informações de um único naver através de seu identificador
 
-*[/Store] Rota de Criação de Naver
+* [/Store] * Rota de Criação de Naver
 
-*[/Update] Rota Para Atualização de Naver
+* [/Update] * Rota Para Atualização de Naver
 
-*[/Delete] Rota Para Deletar um Naver
+* [/Delete] * Rota Para Deletar um Naver
 
 ### Rotas de Projetos
 
-*[/Index] Rota para listagem dos Projetos
+* [/Index] * Rota para listagem dos Projetos
 
-*[/Show] Rota para detalhar um projeto
+* [/Show] * Rota para detalhar um projeto
 
-*[/Store] Rota de Criação de Projeto
+* [/Store] * Rota de Criação de Projeto
 
-*[/Update] Rota Para Atualização de Projeto
+* [/Update] * Rota Para Atualização de Projeto
 
-*[/Delete] Rota Para Deletar um Projeto
+* [/Delete] * Rota Para Deletar um Projeto
 
 ## Test Api Naverdex's
 
@@ -52,15 +52,15 @@ Navers</p>
 * Ok para testar projeto
 
 ## Tecnologias usadas no projeto
-👉 *Node.js
-👉 *express
-👉 *typescript
-👉 *jsonwebtoken
-👉 *bcrypt
-👉 *date-fns
-👉 *jsonwebtoken
+👉  Node.js <br />
+👉  express <br />
+👉  typescript <br />
+👉  jsonwebtoken <br />
+👉  bcrypt <br />
+👉  date-fns <br />
+👉  jsonwebtoken <br />
 
 ## Dificuldades
-<p>Por ser meu primeiro projeto feito sozinho,encontrei muita dificuldade nas relações das tabelas banco de dados e fitragem do dados em si,mais fico muito grato por ter conseguido desenvolver este desafio.</p>
+<p>Por ser meu primeiro projeto feito sozinho,encontrei muita dificuldade nas relações das tabelas do banco de dados e filtragem dos dados em si,mais fico muito grato por ter conseguido desenvolver este desafio.</p>
 
 <p>Bora pro proximo ...</p>

@@ -6,7 +6,7 @@ import usersRouter from '@modules/users/infra/http/routes/users.routes';
 import { Router } from 'express';
 
 const routes = Router();
-routes.use('/users', usersRouter);
+routes.use('/signup', usersRouter);
 routes.use('/login', loginRouter);
 routes.use('/navers', naversRouter);
 routes.use('/projects', projectsRouter);

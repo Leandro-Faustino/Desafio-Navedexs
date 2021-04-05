@@ -5,19 +5,21 @@ import FindProjectServices from '@modules/projects/services/FindProjectServices'
 import DetailProjectServices from '@modules/projects/services/DetailProjectServices';
 import UpdateProjectServices from '@modules/projects/services/UpdateProjectServices';
 import DeleteProjectServices from '@modules/projects/services/DeleteProjectServices';
+import { classToClass } from 'class-transformer';
 
 export default class ProjectsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { name } = request.body;
+    const { name, navers } = request.body;
 
     const createProjects = container.resolve(CreateProjectsService); // instancio repository quando chamo serviço
     const projects = await createProjects.execute({
       user_id,
       name,
+      navers,
     });
 
-    return response.json(projects);
+    return response.json({ projects: classToClass(projects) });
   }
 
   // metodo index
@@ -28,7 +30,7 @@ export default class ProjectsController {
 
     const project = await findProjects.execute(data);
 
-    return response.json(project);
+    return response.json({ project: classToClass(project) });
   }
 
   // metodo show
@@ -44,7 +46,7 @@ export default class ProjectsController {
 
     const project = await findOneProjects.execute(data);
 
-    return response.json(project);
+    return response.json({ project: classToClass(project) });
   }
 
   // metodo update
@@ -57,7 +59,7 @@ export default class ProjectsController {
 
     const project = await findProjects.execute({ id, name, user_id, navers });
 
-    return response.json(project);
+    return response.json({ project: classToClass(project) });
   }
 
   // metodo delete

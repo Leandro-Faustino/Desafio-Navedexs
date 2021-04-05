@@ -31,11 +31,11 @@ export default class UpdateProjectServices {
     });
 
     if (!project?.name) {
-      throw new AppError('Project not found');
+      throw new AppError('Project not found ');
     }
 
     if (project?.user_id !== user_id) {
-      throw new AppError('This Project does not belong to you');
+      throw new AppError('This Project does not is your');
     }
 
     project.name = name;

@@ -3,9 +3,9 @@ import IProjectsDTO, {
   IFindProject,
 } from '@modules/projects/dtos/IProjectsDTO';
 
-export default interface INaversRepository {
+export default interface IProjectsRepository {
   create(data: IProjectsDTO): Promise<Projects>;
-
+  findProjectUser(data: any): Promise<Projects | undefined>;
   findAllProject(data: any): Promise<Projects[] | undefined>;
   findOneProject(data: any): Promise<Projects | undefined>;
   findProject(data: IFindProject): Promise<Projects | undefined>;

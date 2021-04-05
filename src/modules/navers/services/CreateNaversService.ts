@@ -27,6 +27,7 @@ class CreateNaversService {
     if (IfExistNaver) {
       throw new AppError('naver already created');
     }
+
     // criaçao do meu usuario pelo repositorioUser
     const naver = await this.naversRepository.create({
       name,

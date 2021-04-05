@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateNaversService from '@modules/navers/services/CreateNaversService';
-import { parseISO, format } from 'date-fns';
+import { parseISO } from 'date-fns';
 import FilterNaversService from '@modules/navers/services/FilterNaversService';
 import CreateDetailService from '@modules/navers/services/CreateDetailService';
 import UpdateNaverServices from '@modules/navers/services/UpdateNaverServices';
 import DeleteNaverServices from '@modules/navers/services/DeleteNaverServices';
+import { classToClass } from 'class-transformer';
 
 export default class NaversController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -19,6 +20,7 @@ export default class NaversController {
     } = request.body;
 
     const birthDateparsed = parseISO(birthDate);
+
     const admissionParsed = parseISO(admission_date);
 
     const createUser = container.resolve(CreateNaversService); // instancio repository quando chamo serviço
@@ -31,7 +33,10 @@ export default class NaversController {
       projects,
     });
     console.log(navers);
-    return response.json(navers);
+
+    return response.json({
+      navers: classToClass(navers),
+    });
   }
 
   // metodos index....
@@ -39,9 +44,9 @@ export default class NaversController {
     const data = { ...request.query, user_id: request.user.id };
 
     const naversFilter = container.resolve(FilterNaversService); // instancio repository quando chamo serviço
-    const projectsNavers = await naversFilter.execute(data);
+    const Naver = await naversFilter.execute(data);
 
-    return response.json(projectsNavers);
+    return response.json({ Naver: classToClass(Naver) });
   }
 
   // metodo show
@@ -56,7 +61,7 @@ export default class NaversController {
     const naversDetails = container.resolve(CreateDetailService);
     const navers = await naversDetails.execute(data);
 
-    return response.json(navers);
+    return response.json({ navers: classToClass(navers) });
   }
 
   // metodo update
@@ -84,7 +89,7 @@ export default class NaversController {
       projects,
     });
 
-    return response.json(navers);
+    return response.json({ navers: classToClass(navers) });
   }
 
   // metodo delete

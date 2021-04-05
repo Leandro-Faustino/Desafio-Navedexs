@@ -33,9 +33,6 @@ export default function ensureAuthenticated(
       id: sub, // sub do token
     };
 
-    // eslint-disable-next-line no-console
-    console.log(decoded);
-
     return next(); // se deu tudo certo faz com que a requisiçao continue middleware
   } catch (err) {
     throw new AppError('Invalid JWT token', 401);

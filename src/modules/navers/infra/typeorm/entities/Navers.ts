@@ -9,6 +9,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Exclude } from 'class-transformer';
 import Users from '@modules/users/infra/typeorm/entities/Users';
 import Projects from '@modules/projects/infra/typeorm/entities/Projects';
 
@@ -18,6 +20,7 @@ export default class Navers {
   id: string;
 
   @Column()
+  @Exclude()
   user_id: string;
 
   @ManyToOne(() => Users)
@@ -27,8 +30,10 @@ export default class Navers {
   @Column()
   name: string;
 
-  @ManyToOne(() => Projects, navers => Navers, { eager: true })
-  @JoinColumn()
+  @ManyToMany(() => Projects, projects => projects.navers, {
+    cascade: true,
+  })
+  @JoinTable()
   projects: Projects[];
 
   @Column()
@@ -41,8 +46,10 @@ export default class Navers {
   job_role: string;
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }

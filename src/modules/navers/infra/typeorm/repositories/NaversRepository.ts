@@ -1,7 +1,9 @@
-import { Connection, getRepository, Repository } from 'typeorm';
+import { createQueryBuilder, getRepository, Repository } from 'typeorm';
 import { IFindNaversDTO, INaversDTO } from '@modules/navers/dtos/INaversDTO';
 import INaversRepository from '@modules/navers/infra/repositories/INaversRepository';
 import Navers from '@modules/navers/infra/typeorm/entities/Navers';
+import { id } from 'date-fns/locale';
+import Projects from '@modules/projects/infra/typeorm/entities/Projects';
 
 class NaversRepository implements INaversRepository {
   private ormRepository: Repository<Navers>; // cria typo repositorio
@@ -24,6 +26,12 @@ class NaversRepository implements INaversRepository {
     job_role,
     projects,
   }: INaversDTO): Promise<Navers> {
+    /* const project = await this.ormRepository
+      .createQueryBuilder('navers')
+      .leftJoinAndSelect('navers.projects', 'pnavers')
+      .where('navers.id = :id'{})
+      .getMany();
+    console.log(project); */
     const naver = this.ormRepository.create({
       user_id,
       name,
@@ -57,8 +65,8 @@ class NaversRepository implements INaversRepository {
     return this.ormRepository.save(naver);
   }
 
-  public async delete(id: any): Promise<void> {
-    await this.ormRepository.delete(id);
+  public async delete(data: any): Promise<void> {
+    await this.ormRepository.delete(data);
   }
 }
 export default NaversRepository;

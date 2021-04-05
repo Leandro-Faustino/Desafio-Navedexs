@@ -10,10 +10,23 @@ class ProjectsRepository implements IProjectsRepository {
     this.ormRepository = getRepository(Projects); // cria o repositorio
   }
 
-  public async create({ user_id, name }: IProjectsDTO): Promise<Projects> {
+  public async findProjectUser(
+    data: IProjectsDTO,
+  ): Promise<Projects | undefined> {
+    const projects = await this.ormRepository.findOne(data);
+
+    return projects;
+  }
+
+  public async create({
+    user_id,
+    name,
+    navers,
+  }: IProjectsDTO): Promise<Projects> {
     const project = this.ormRepository.create({
       user_id,
       name,
+      navers,
     });
     await this.ormRepository.save(project);
 

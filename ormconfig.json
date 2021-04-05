@@ -4,6 +4,7 @@
   "host" : "localhost",
   "port" : 5432,
   "username" : "postgres",
+  "logging": "false",
   "password" : "mysecretpassword",
   "database" : "Naverdexs_postgres",
   "entities": [

@@ -42,6 +42,50 @@ Navers</p>
 
 * [/Delete] * Rota Para Deletar um Projeto
 
+## Executando o projeto
+
+<p> Para executar o projeto é preciso ter instalado:</p>
+
+* Git
+* Node.js
+* VsCode
+
+### Para rodar o projeto no servidor
+
+
+### Clone este repositório
+> git clone https://github.com/Leandro-Faustino/Desafio-Navedexs.git
+
+### Acesse a pasta do projeto
+> cd Desafio-Navedexs
+
+### Instale as dependências
+> yarn
+### ou
+> npm install
+
+### Edite o arquivo ORMCONFIG.JSON com as informações do seu banco de dados
+> instale o postgresSQL ou outro,
+
+$Este é um exemplo
+  >"type" : "postgres",
+  > "host" : "localhost",
+  >"port" : 5432,
+  >"username" : "postgres",
+  >"password" : "secretpassword",
+  >"database" : "Naverdexs_postgres",
+
+### Rode as migrations para criar as tabelas em seu banco de dados.
+> yarn typeorm migration:run
+### ou
+> npm run typeorm migration:run
+
+# Execute a aplicação em modo de desenvolvimento
+> yarn dev:server
+# ou
+> npm run dev:server
+
+
 ## Test Api Naverdex's
 
 ### Para testar o projeto,basta clicar no botão 👇
